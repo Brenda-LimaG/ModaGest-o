@@ -1,0 +1,137 @@
+.layout {
+  display: flex;
+  min-height: 100vh;
+}
+
+.sidebar {
+  width: 240px;
+  background: var(--cor-primaria-escura);
+  color: #fff;
+  display: flex;
+  flex-direction: column;
+  position: fixed;
+  top: 0; left: 0; bottom: 0;
+  z-index: 100;
+  transition: transform 0.25s;
+}
+
+.sidebar-logo {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  padding: 1.2rem 1.2rem 1rem;
+  font-size: 1.1rem;
+  font-weight: 700;
+  border-bottom: 1px solid rgba(255,255,255,0.15);
+}
+
+.logo-icone { font-size: 1.5rem; }
+
+.sidebar-nav {
+  display: flex;
+  flex-direction: column;
+  padding: 1rem 0;
+  flex: 1;
+}
+
+.sidebar-nav a {
+  color: rgba(255,255,255,0.85);
+  padding: 0.7rem 1.2rem;
+  font-size: 0.93rem;
+  transition: background 0.15s, color 0.15s;
+  border-left: 3px solid transparent;
+}
+
+.sidebar-nav a:hover {
+  background: rgba(255,255,255,0.1);
+  color: #fff;
+  text-decoration: none;
+}
+
+.sidebar-nav a.active {
+  background: rgba(255,255,255,0.15);
+  color: #fff;
+  border-left-color: #fff;
+  font-weight: 700;
+}
+
+.sidebar-usuario {
+  padding: 1rem 1.2rem;
+  border-top: 1px solid rgba(255,255,255,0.15);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.5rem;
+}
+
+.usuario-nome {
+  font-size: 0.85rem;
+  font-weight: 600;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.sidebar-usuario .btn-secundario {
+  border-color: rgba(255,255,255,0.5);
+  color: #fff;
+  flex-shrink: 0;
+}
+
+.sidebar-usuario .btn-secundario:hover {
+  background: rgba(255,255,255,0.15);
+}
+
+.conteudo-principal {
+  margin-left: 240px;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+.topbar {
+  background: var(--cor-superficie);
+  border-bottom: 1px solid var(--cor-borda);
+  padding: 0.85rem 1.5rem;
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  position: sticky;
+  top: 0;
+  z-index: 50;
+}
+
+.btn-menu {
+  display: none;
+  background: none;
+  border: none;
+  font-size: 1.3rem;
+  padding: 0.2rem;
+}
+
+.topbar-titulo {
+  font-weight: 600;
+  font-size: 0.95rem;
+  color: var(--cor-texto-secundario);
+}
+
+.main-area {
+  padding: 1.8rem;
+  flex: 1;
+}
+
+@media (max-width: 768px) {
+  .sidebar {
+    transform: translateX(-100%);
+  }
+  .sidebar.aberta {
+    transform: translateX(0);
+  }
+  .conteudo-principal {
+    margin-left: 0;
+  }
+  .btn-menu {
+    display: block;
+  }
+}

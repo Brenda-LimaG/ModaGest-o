@@ -1,0 +1,57 @@
+.dashboard {}
+
+.pagina-titulo {
+  font-size: 1.5rem;
+  color: var(--cor-primaria-escura);
+  margin-bottom: 1.5rem;
+}
+
+.metricas-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  gap: 1.2rem;
+  margin-bottom: 2rem;
+}
+
+.metrica-card {
+  text-align: center;
+  padding: 1.5rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.3rem;
+}
+
+.metrica-icone { font-size: 2rem; }
+.metrica-valor { font-size: 1.8rem; font-weight: 800; color: var(--cor-primaria); }
+.metrica-label { font-size: 0.82rem; color: var(--cor-texto-secundario); text-align: center; }
+.metrica-link { font-size: 0.82rem; color: var(--cor-primaria); margin-top: 0.3rem; }
+
+.atalhos-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+  gap: 1rem;
+}
+
+.atalho-card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  padding: 1.5rem;
+  text-align: center;
+  text-decoration: none;
+  color: var(--cor-texto);
+  transition: transform 0.15s, box-shadow 0.15s;
+  font-size: 0.93rem;
+  font-weight: 600;
+}
+
+.atalho-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 14px rgba(0,0,0,0.1);
+  text-decoration: none;
+}
+
+.atalho-icone { font-size: 1.8rem; }

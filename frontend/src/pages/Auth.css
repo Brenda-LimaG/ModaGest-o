@@ -1,0 +1,57 @@
+.auth-pagina {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(135deg, #fce4ec 0%, #f8bbd0 100%);
+  padding: 1rem;
+}
+
+.auth-card {
+  width: 100%;
+  max-width: 420px;
+  padding: 2.5rem;
+  text-align: center;
+}
+
+.auth-logo {
+  font-size: 3rem;
+  margin-bottom: 0.5rem;
+}
+
+.auth-titulo {
+  font-size: 1.6rem;
+  color: var(--cor-primaria-escura);
+  margin-bottom: 0.25rem;
+}
+
+.auth-subtitulo {
+  color: var(--cor-texto-secundario);
+  margin-bottom: 1.8rem;
+  font-size: 0.93rem;
+}
+
+.auth-erro {
+  background: #ffebee;
+  color: var(--cor-erro);
+  padding: 0.7rem 1rem;
+  border-radius: var(--raio);
+  margin-bottom: 1rem;
+  font-size: 0.9rem;
+  text-align: left;
+}
+
+.auth-btn {
+  width: 100%;
+  padding: 0.75rem;
+  font-size: 1rem;
+  margin-top: 0.5rem;
+}
+
+.auth-link {
+  margin-top: 1rem;
+  font-size: 0.88rem;
+  color: var(--cor-texto-secundario);
+}
+
+.auth-card form { text-align: left; }

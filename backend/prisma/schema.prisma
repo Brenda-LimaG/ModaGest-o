@@ -1,0 +1,88 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model Marca {
+  id           String    @id @default(uuid())
+  nome         String    @unique
+  descricao    String?
+  email        String    @unique
+  senhaHash    String    @map("senha_hash")
+  telefone     String?
+  instagram    String?
+  logoUrl      String?   @map("logo_url")
+  ativa        Boolean   @default(true)
+  criadoEm     DateTime  @default(now()) @map("criado_em")
+  atualizadoEm DateTime  @updatedAt @map("atualizado_em")
+
+  produtos Produto[]
+  tecidos  Tecido[]
+
+  @@map("marcas")
+}
+
+model Produto {
+  id             String   @id @default(uuid())
+  marcaId        String   @map("marca_id")
+  nome           String
+  descricao      String?
+  fotos          String[]
+  precoVenda     Decimal? @map("preco_venda") @db.Decimal(10, 2)
+  publicado      Boolean  @default(false)
+  custoTecidos   Decimal  @default(0) @map("custo_tecidos") @db.Decimal(10, 2)
+  outrosCustos   Decimal  @default(0) @map("outros_custos") @db.Decimal(10, 2)
+  custoTotal     Decimal  @default(0) @map("custo_total") @db.Decimal(10, 2)
+  margemLucroPct Decimal? @map("margem_lucro_pct") @db.Decimal(5, 2)
+  precoSugerido  Decimal? @map("preco_sugerido") @db.Decimal(10, 2)
+  criadoEm      DateTime @default(now()) @map("criado_em")
+  atualizadoEm  DateTime @updatedAt @map("atualizado_em")
+
+  marca           Marca           @relation(fields: [marcaId], references: [id])
+  tecidosUsados   ProdutoTecido[]
+
+  @@map("produtos")
+}
+
+model Tecido {
+  id                String        @id @default(uuid())
+  marcaId           String        @map("marca_id")
+  nome              String
+  tipo              String?
+  cor               String?
+  textura           String?
+  fotoUrl           String?       @map("foto_url")
+  quantidadeEstoque Decimal       @default(0) @map("quantidade_estoque") @db.Decimal(10, 3)
+  unidadeMedida     UnidadeMedida @default(metro) @map("unidade_medida")
+  valorPorUnidade   Decimal       @map("valor_por_unidade") @db.Decimal(10, 2)
+  criadoEm         DateTime      @default(now()) @map("criado_em")
+  atualizadoEm     DateTime      @updatedAt @map("atualizado_em")
+
+  marca    Marca           @relation(fields: [marcaId], references: [id])
+  produtos ProdutoTecido[]
+
+  @@map("tecidos")
+}
+
+model ProdutoTecido {
+  id              String  @id @default(uuid())
+  produtoId       String  @map("produto_id")
+  tecidoId        String  @map("tecido_id")
+  quantidade      Decimal @db.Decimal(10, 3)
+  custoCalculado  Decimal @map("custo_calculado") @db.Decimal(10, 2)
+
+  produto Produto @relation(fields: [produtoId], references: [id], onDelete: Cascade)
+  tecido  Tecido  @relation(fields: [tecidoId], references: [id])
+
+  @@map("produto_tecidos")
+}
+
+enum UnidadeMedida {
+  metro
+  kg
+  unidade
+}

@@ -1,0 +1,109 @@
+.detalhe-pagina {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 2rem 1.5rem;
+}
+
+.detalhe-voltar {
+  display: inline-block;
+  margin-bottom: 1rem;
+  color: var(--cor-primaria);
+  font-size: 0.9rem;
+}
+
+.detalhe-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 1rem;
+  margin-bottom: 2rem;
+}
+
+.detalhe-nome {
+  font-size: 1.8rem;
+  font-weight: 700;
+  color: var(--cor-primaria-escura);
+}
+
+.detalhe-contatos { display: flex; gap: 1rem; flex-wrap: wrap; }
+
+.contato-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.3rem;
+  padding: 0.45rem 0.9rem;
+  border: 1.5px solid var(--cor-borda);
+  border-radius: var(--raio);
+  font-size: 0.88rem;
+  color: var(--cor-texto);
+  transition: border-color 0.15s;
+}
+
+.contato-link:hover { border-color: var(--cor-primaria); text-decoration: none; }
+
+.detalhe-produtos h2 {
+  font-size: 1.2rem;
+  margin-bottom: 1.2rem;
+  color: var(--cor-texto-secundario);
+}
+
+.sem-produtos {
+  color: var(--cor-texto-secundario);
+  text-align: center;
+  padding: 2rem;
+}
+
+.produto-card {
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  padding: 0;
+}
+
+.produto-foto {
+  height: 200px;
+  background: #fce4ec;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+}
+
+.produto-foto img { width: 100%; height: 100%; object-fit: cover; }
+.foto-placeholder { font-size: 4rem; }
+
+.produto-info { padding: 1rem; flex: 1; display: flex; flex-direction: column; gap: 0.4rem; }
+.produto-info h3 { font-size: 1rem; }
+
+.produto-descricao {
+  font-size: 0.85rem;
+  color: var(--cor-texto-secundario);
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.produto-preco {
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: var(--cor-primaria);
+  margin-top: 0.25rem;
+}
+
+.btn-comprar {
+  display: inline-block;
+  margin-top: auto;
+  padding: 0.5rem 0.9rem;
+  background: #25d366;
+  color: #fff;
+  border-radius: var(--raio);
+  font-size: 0.85rem;
+  font-weight: 700;
+  text-align: center;
+  text-decoration: none;
+  transition: opacity 0.15s;
+}
+
+.btn-comprar:hover { opacity: 0.88; text-decoration: none; }
