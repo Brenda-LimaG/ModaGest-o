@@ -1,0 +1,29 @@
+databases:
+  - name: moda-gestao-db
+    databaseName: moda_gestao
+    user: moda_gestao
+    plan: free
+
+services:
+  - type: web
+    name: moda-gestao
+    plan: free
+    runtime: docker
+    dockerfilePath: ./Dockerfile
+    envVars:
+      - key: DATABASE_URL
+        fromDatabase:
+          name: moda-gestao-db
+          property: connectionString
+      - key: JWT_SECRET
+        generateValue: true
+      - key: JWT_EXPIRES_IN
+        value: 8h
+      - key: NODE_ENV
+        value: production
+      - key: MAX_FILE_SIZE_MB
+        value: "25"
+      - key: UPLOAD_DIR
+        value: uploads
+      - key: PORT
+        value: "3001"
