@@ -1,0 +1,11 @@
+**/node_modules
+**/dist
+**/.env
+backend/uploads
+backend/prisma/dev.db
+backend/prisma/dev.db-journal
+**/*.log
+.git
+.gitignore
+.kiro
+.vscode
