@@ -1,5 +1,8 @@
 FROM node:20-alpine
 
+# OpenSSL necessário para o Prisma no Alpine
+RUN apk add --no-cache openssl
+
 WORKDIR /app
 
 # ── Dependências do backend ───────────────────────────────────
