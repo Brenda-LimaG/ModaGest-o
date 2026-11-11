@@ -6,9 +6,13 @@
   "scripts": {
     "start": "node src/server.js",
     "dev": "nodemon src/server.js",
+    "build": "npm run build:frontend && npm run db:deploy",
+    "build:frontend": "cd ../frontend && npm install && npm run build",
+    "db:deploy": "npx prisma migrate deploy",
     "db:migrate": "npx prisma migrate dev",
     "db:generate": "npx prisma generate",
-    "db:seed": "node prisma/seed.js"
+    "db:seed": "node prisma/seed.js",
+    "postinstall": "npx prisma generate"
   },
   "dependencies": {
     "@prisma/client": "5.7.1",

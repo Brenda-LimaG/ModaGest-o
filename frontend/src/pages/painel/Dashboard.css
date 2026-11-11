@@ -1,57 +1,125 @@
-.dashboard {}
+/* ─── Dashboard ─────────────────────────────────────────────── */
+.dash-header { margin-bottom: 2rem; }
 
-.pagina-titulo {
-  font-size: 1.5rem;
-  color: var(--cor-primaria-escura);
-  margin-bottom: 1.5rem;
+.dash-titulo {
+  font-size: 1.6rem;
+  font-weight: 900;
+  letter-spacing: -0.04em;
+  text-transform: uppercase;
+  color: var(--text);
+  line-height: 1;
 }
 
+.dash-sub {
+  font-size: 0.75rem;
+  color: var(--text-3);
+  margin-top: 0.3rem;
+  letter-spacing: 0.04em;
+}
+
+/* ─── Métricas ───────────────────────────────────────────────── */
 .metricas-grid {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
-  gap: 1.2rem;
+  gap: 0.75rem;
   margin-bottom: 2rem;
 }
 
 .metrica-card {
-  text-align: center;
-  padding: 1.5rem;
+  background: var(--surface);
+  border-radius: var(--r-lg);
+  border: 1px solid var(--border);
+  padding: 1.25rem 1.35rem;
   display: flex;
   flex-direction: column;
-  align-items: center;
-  gap: 0.3rem;
+  gap: 0.1rem;
+  text-decoration: none;
+  color: var(--text);
+  transition: border-color 0.15s, transform 0.15s;
+}
+.metrica-card:hover {
+  border-color: #111;
+  transform: translateY(-1px);
+  text-decoration: none;
 }
 
-.metrica-icone { font-size: 2rem; }
-.metrica-valor { font-size: 1.8rem; font-weight: 800; color: var(--cor-primaria); }
-.metrica-label { font-size: 0.82rem; color: var(--cor-texto-secundario); text-align: center; }
-.metrica-link { font-size: 0.82rem; color: var(--cor-primaria); margin-top: 0.3rem; }
+.metrica-top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 0.5rem;
+}
+
+.metrica-label-top {
+  font-size: 0.62rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--text-3);
+}
+
+.metrica-seta { font-size: 0.75rem; color: var(--text-3); }
+
+.metrica-valor {
+  font-size: 1.75rem;
+  font-weight: 900;
+  letter-spacing: -0.04em;
+  color: var(--text);
+  line-height: 1;
+}
+
+.metrica-label {
+  font-size: 0.72rem;
+  color: var(--text-3);
+  margin-top: 0.2rem;
+}
+
+/* ─── Atalhos ────────────────────────────────────────────────── */
+.section-titulo {
+  font-size: 0.62rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--text-3);
+  margin-bottom: 0.85rem;
+}
 
 .atalhos-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
-  gap: 1rem;
+  grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+  gap: 0.6rem;
 }
 
 .atalho-card {
   display: flex;
-  flex-direction: column;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 0.9rem 1rem;
+  background: var(--surface);
+  border-radius: var(--r-lg);
+  border: 1px solid var(--border);
+  text-decoration: none;
+  color: var(--text);
+  font-weight: 600;
+  font-size: 0.78rem;
+  letter-spacing: 0.03em;
+  transition: all 0.15s;
+}
+.atalho-card:hover {
+  border-color: #111;
+  background: var(--bg-2);
+  text-decoration: none;
+  transform: translateY(-1px);
+}
+
+.atalho-icone {
+  width: 30px; height: 30px;
+  border-radius: 3px;
+  background: var(--bg-2);
+  display: flex;
   align-items: center;
   justify-content: center;
-  gap: 0.5rem;
-  padding: 1.5rem;
-  text-align: center;
-  text-decoration: none;
-  color: var(--cor-texto);
-  transition: transform 0.15s, box-shadow 0.15s;
-  font-size: 0.93rem;
-  font-weight: 600;
+  font-size: 0.85rem;
+  flex-shrink: 0;
+  border: 1px solid var(--border);
 }
-
-.atalho-card:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 4px 14px rgba(0,0,0,0.1);
-  text-decoration: none;
-}
-
-.atalho-icone { font-size: 1.8rem; }

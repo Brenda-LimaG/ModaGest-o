@@ -1,7 +1,10 @@
 node_modules/
 dist/
 .env
-uploads/
+backend/uploads/
+backend/prisma/dev.db
+backend/prisma/dev.db-journal
+backend/prisma/migrations/
 *.log
 .DS_Store
 Thumbs.db

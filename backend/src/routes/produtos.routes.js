@@ -7,6 +7,14 @@ const { calcularPrecificacao } = require('../services/precificacao.service');
 const router = express.Router();
 router.use(authMiddleware);
 
+/** SQLite não tem arrays — fotos são salvas como JSON string */
+function normalizarProduto(p) {
+  if (!p) return p;
+  const fotos = (() => { try { return JSON.parse(p.fotosJson || '[]'); } catch { return []; } })();
+  const { fotosJson, ...rest } = p;
+  return { ...rest, fotos };
+}
+
 // GET /produtos — Lista produtos da marca autenticada
 router.get('/', async (req, res) => {
   try {
@@ -19,7 +27,7 @@ router.get('/', async (req, res) => {
       },
       orderBy: { criadoEm: 'desc' },
     });
-    res.json(produtos);
+    res.json(produtos.map(normalizarProduto));
   } catch (err) {
     res.status(500).json({ erro: 'Erro ao listar produtos.' });
   }
@@ -51,7 +59,9 @@ router.post(
       const produto = await prisma.produto.create({
         data: {
           marcaId: req.marcaId,
-          nome, descricao, fotos,
+          nome,
+          descricao,
+          fotosJson: JSON.stringify(fotos),
           precoVenda: precoVenda ?? null,
           outrosCustos: calculo.outrosCustos,
           custoTecidos: calculo.custoTecidos,
@@ -61,7 +71,7 @@ router.post(
           tecidosUsados: {
             create: calculo.detalheTecidos.map((d, i) => ({
               tecidoId: d.tecidoId,
-              quantidade: tecidosUtilizados[i].quantidade,
+              quantidade: Number(tecidosUtilizados[i].quantidade),
               custoCalculado: d.custoCalculado,
             })),
           },
@@ -73,7 +83,7 @@ router.post(
         },
       });
 
-      res.status(201).json(produto);
+      res.status(201).json(normalizarProduto(produto));
     } catch (err) {
       res.status(err.status || 500).json({ erro: err.message });
     }
@@ -85,14 +95,10 @@ router.get('/:id', async (req, res) => {
   try {
     const produto = await prisma.produto.findFirst({
       where: { id: req.params.id, marcaId: req.marcaId },
-      include: {
-        tecidosUsados: {
-          include: { tecido: true },
-        },
-      },
+      include: { tecidosUsados: { include: { tecido: true } } },
     });
     if (!produto) return res.status(404).json({ erro: 'Produto não encontrado.' });
-    res.json(produto);
+    res.json(normalizarProduto(produto));
   } catch (err) {
     res.status(500).json({ erro: 'Erro ao buscar produto.' });
   }
@@ -114,14 +120,16 @@ router.put('/:id', async (req, res) => {
 
     const calculo = await calcularPrecificacao(req.marcaId, tecidosUtilizados, outrosCustos, margemLucroPct);
 
-    // Remove tecidos antigos e recria
     await prisma.produtoTecido.deleteMany({ where: { produtoId: req.params.id } });
+
+    const fotosAtuais = fotos !== undefined ? JSON.stringify(fotos) : existe.fotosJson;
 
     const produto = await prisma.produto.update({
       where: { id: req.params.id },
       data: {
-        nome, descricao,
-        fotos: fotos ?? existe.fotos,
+        nome,
+        descricao,
+        fotosJson: fotosAtuais,
         precoVenda: precoVenda !== undefined ? precoVenda : existe.precoVenda,
         outrosCustos: calculo.outrosCustos,
         custoTecidos: calculo.custoTecidos,
@@ -131,7 +139,7 @@ router.put('/:id', async (req, res) => {
         tecidosUsados: {
           create: calculo.detalheTecidos.map((d, i) => ({
             tecidoId: d.tecidoId,
-            quantidade: tecidosUtilizados[i].quantidade,
+            quantidade: Number(tecidosUtilizados[i].quantidade),
             custoCalculado: d.custoCalculado,
           })),
         },
@@ -141,7 +149,7 @@ router.put('/:id', async (req, res) => {
       },
     });
 
-    res.json(produto);
+    res.json(normalizarProduto(produto));
   } catch (err) {
     res.status(err.status || 500).json({ erro: err.message });
   }

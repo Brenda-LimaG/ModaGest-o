@@ -1,17 +1,19 @@
 import axios from 'axios';
 
+// Em desenvolvimento o Vite faz proxy de /api → localhost:3001
+// Em produção o Express serve tudo no mesmo domínio sem prefixo
+const BASE = import.meta.env.DEV ? '/api' : '';
+
 const api = axios.create({
-  baseURL: '/api',
+  baseURL: BASE,
 });
 
-// Injeta token JWT automaticamente
 api.interceptors.request.use((config) => {
   const token = localStorage.getItem('token');
   if (token) config.headers.Authorization = `Bearer ${token}`;
   return config;
 });
 
-// Redireciona para login se token expirar
 api.interceptors.response.use(
   (response) => response,
   (error) => {
